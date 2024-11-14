@@ -1,10 +1,7 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import * as SplashScreen from 'expo-splash-screen';
-import * as Font from 'expo-font';
-import { registerRootComponent } from 'expo';
 import favoritesReducer from './redux/reducers';
 import NavigateTab from './Navigation/NavigateTab';
 import {
@@ -15,7 +12,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-// Инициализация Redux Store
 const store = configureStore({
   reducer: {
     favorites: favoritesReducer,
@@ -27,16 +23,6 @@ type SectionProps = {
   children: React.ReactNode;
 };
 
-// Функция загрузки шрифтов
-const fonts = () => Font.loadAsync({
-  'mt-bold': require('./assets/fonts/Montserrat-Bold.ttf'),
-  'mt-text': require('./assets/fonts/Raleway-Medium.ttf'),
-  'mt-name': require('./assets/fonts/CarterOne-Regular.ttf'),
-  'mt-caption': require('./assets/fonts/REM-Light.ttf'),
-});
-
-SplashScreen.preventAutoHideAsync();
-
 function Section({ children, title }: SectionProps) {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -44,18 +30,14 @@ function Section({ children, title }: SectionProps) {
       <Text
         style={[
           styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
+          { color: isDarkMode ? Colors.white : Colors.black },
         ]}>
         {title}
       </Text>
       <Text
         style={[
           styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
+          { color: isDarkMode ? Colors.light : Colors.dark },
         ]}>
         {children}
       </Text>
@@ -68,21 +50,12 @@ function App(): React.JSX.Element {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
-    async function prepare() {
-      try {
-        await fonts();
-      } finally {
-        setAppIsReady(true);
-      }
-    }
-    prepare();
+    // Имитация загрузки шрифтов, если понадобится
+    const prepareApp = async () => {
+      setAppIsReady(true);
+    };
+    prepareApp();
   }, []);
-
-  const onLayoutRootView = useCallback(async () => {
-    if (appIsReady) {
-      await SplashScreen.hideAsync();
-    }
-  }, [appIsReady]);
 
   if (!appIsReady) {
     return null;
@@ -94,14 +67,12 @@ function App(): React.JSX.Element {
 
   return (
     <Provider store={store}>
-      <SafeAreaView style={[styles.safeArea, backgroundStyle]} edges={['top', 'left']} onLayout={onLayoutRootView}>
+      <SafeAreaView style={[styles.safeArea, backgroundStyle]}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
+        <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
           <Header />
           <View style={{ backgroundColor: isDarkMode ? Colors.black : Colors.white }}>
             <Section title="Step One">
@@ -136,16 +107,18 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
+    fontFamily: 'Montserrat-Bold',
   },
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
+    fontFamily: 'Raleway-Medium',
   },
   highlight: {
     fontWeight: '700',
+    fontFamily: 'CarterOne-Regular',
   },
 });
 
-registerRootComponent(App);
 export default App;
