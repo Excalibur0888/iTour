@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { StyleSheet, View, TouchableOpacity, Image, Animated, Text } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import HeaderMenu from "../Main/HeaderMenu";
 
 const Header = ({setIsScreenDimmed}) => {
@@ -32,7 +33,7 @@ const Header = ({setIsScreenDimmed}) => {
 	return (
 		<View style={styles.header}>
 		<TouchableOpacity onPress={toggleMenu}>
-			<Ionicons name={menuIcon} size={50} color="white" />
+			<Icon name={menuIcon} size={50} color="white" />
 		</TouchableOpacity>
 		<View style={styles.titleContainer}>
 			<Image
@@ -43,11 +44,11 @@ const Header = ({setIsScreenDimmed}) => {
 			<Text style={styles.title}>TechFusion</Text>
 		</View>
 		<TouchableOpacity>
-			<Ionicons name="search-outline" size={45} color="white" />
+			<Icon name="search-outline" size={45} color="white" />
 		</TouchableOpacity>
 		{isMenuOpen && (
 			<TouchableOpacity onPress={toggleMenu} style={styles.closeButton}>
-				<Ionicons name="close-outline" size={50} color="white" />
+				<Icon name="close-outline" size={50} color="white" />
 			</TouchableOpacity>
 		)}
 					{isMenuOpen && (

@@ -10,6 +10,9 @@
 			<string>Raleway-Medium.ttf</string>
 			<string>CarterOne-Regular.ttf</string>
 			<string>REM-Light.ttf</string>
+			<string>MaterialCommunityIcons.ttf</string>
+			<string>FontAwesome.ttf</string>
+			<string>AntDesign.ttf</string>
 		</array>
 
 		<key>CFBundleDisplayName</key>

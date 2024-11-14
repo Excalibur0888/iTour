@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Animated, TouchableWithoutFeedback } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { gStyle } from '../../styles/style';
 import { useNavigation } from "@react-navigation/native";
-import GridContainers from './GridContainers'
+import GridContainers from './GridContainers';
 import Categories from './Categories';
 import Header from '../Header/Header';
 import { handlePressIn, handlePressOut } from './Animation/Animations';
@@ -28,7 +28,7 @@ const Main = () => {
 					},
 					]}>
 					<View style={{ marginRight: 10 }}>
-						<Ionicons name="desktop-outline" size={25} color="white" />
+						<Icon name="home-outline" size={25} color="white" />
 					</View>
 					<Text style={gStyle.text}>Собрать свой ПК</Text>
 				</Animated.View>
@@ -39,7 +39,7 @@ const Main = () => {
 				<GridContainers />
 			</ScrollView>
 			<TouchableOpacity onPress={handlePlusButtonPress} style={styles.plusButton}>
-				<Ionicons name="add-outline" size={45} color="white" />
+				<Icon name="add-outline" size={45} color="white" />
 			</TouchableOpacity>
 		</View>
 	);

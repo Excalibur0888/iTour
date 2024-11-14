@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import { useNavigation } from '@react-navigation/native';
 
 const Menu = () => {
@@ -15,7 +16,7 @@ const Menu = () => {
 		return (
 			<TouchableHighlight style={styles.menuButton} onPress={onPress}>
 				<View style={styles.menuButtonContent}>
-					<Ionicons name={children.iconName} size={36} color={iconColor} />
+					<Icon name={children.iconName} size={36} color={iconColor} />
 					<Text style={[styles.menuButtonText, { color: textColor }]}>
 						{children.text}
 					</Text>

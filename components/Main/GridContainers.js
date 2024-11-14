@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, ScrollView, Animated, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { Ionicons } from '@expo/vector-icons';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 import { addToFavorites, removeFromFavorites } from '../../redux/actions';
 import { getImageDownloadURL } from './firebaseStorageHelper';
-import { handlePressIn, handlePressOut} from './Animation/Animations'
+import { handlePressIn, handlePressOut} from './Animation/Animations';
 
 const Block = ({ blockCaption, imageSource, price }) => {
 	const [selected, setSelected] = useState(false);
@@ -38,7 +39,7 @@ const Block = ({ blockCaption, imageSource, price }) => {
 					]}
 					onPress={handleToggleFavorite}
 				>
-					<Ionicons
+					<Icon
 						name={selected ? 'heart' : 'heart-outline'}
 						size={30}
 						color={selected ? 'red' : 'black'}

@@ -1,13 +1,12 @@
 import { initializeApp } from 'firebase/app';
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
-  apiKey: "AIzaSyCvoNqpoGcKmpQX9jxJM_pcgdCvr5PZNQA",
-  authDomain: "pc-master-b9db9.firebaseapp.com",
-  projectId: "pc-master-b9db9",
-  storageBucket: "pc-master-b9db9.appspot.com",
-  messagingSenderId: "56886089452",
-  appId: "1:56886089452:web:822f1e18e72ecf4f61f7c9",
-  measurementId: "G-HWLJLJBNBH"
+  apiKey: "AIzaSyCJzNYz_8ydHDfpXFaq8cRwnnj4w5vgyto",
+  authDomain: "auth-start-63049.firebaseapp.com",
+  projectId: "auth-start-63049",
+  storageBucket: "auth-start-63049.appspot.com",
+  messagingSenderId: "1092761434475",
+  appId: "1:1092761434475:web:682ad23c8536f59bca342e"
 };
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app);
