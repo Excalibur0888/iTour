@@ -1,98 +1,87 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Home from 'react-native-vector-icons/Octicons';
 
 import { useNavigation } from '@react-navigation/native';
 
+const MenuButton = ({ onPress, children, isActive }) => {
+	const iconColor = isActive ? '#176FF2' : '#B8B8B8';
+
+	return (
+		<TouchableHighlight style={styles.menuButton} onPress={onPress}>
+			<View style={styles.menuButtonContent}>
+				{children.iconName === 'home' ? <Home name={children.iconName} size={30} color={iconColor} /> : <Icon name={children.iconName} size={30} color={iconColor} />}
+			</View>
+		</TouchableHighlight>
+	);
+};
+
 const Menu = () => {
 	const navigation = useNavigation();
-
 	const [activeMenu, setActiveMenu] = useState('Main');
-
-	const MenuButton = ({ onPress, children, isActive }) => {
-		const iconColor = isActive ? 'white' : 'gray';
-		const textColor = isActive ? 'white' : 'gray';
-
-		return (
-			<TouchableHighlight style={styles.menuButton} onPress={onPress}>
-				<View style={styles.menuButtonContent}>
-					<Icon name={children.iconName} size={36} color={iconColor} />
-					<Text style={[styles.menuButtonText, { color: textColor }]}>
-						{children.text}
-					</Text>
-				</View>
-			</TouchableHighlight>
-		);
-	};
 
 	return (
 		<View style={styles.menu}>
-			<View style={styles.menuBackground} />
-
 			<MenuButton
 				onPress={() => {
-					navigation.navigate('Main');
+					navigation.navigate('MainTab', { screen: 'Main' });
 					setActiveMenu('Main');
 				}}
 				isActive={activeMenu === 'Main'}
 			>
-				{{ iconName: 'home-outline', text: 'Главная' }}
+				{{ iconName: 'home' }}
 			</MenuButton>
 			<MenuButton
 				onPress={() => {
-					navigation.navigate('Catalog');
+					navigation.navigate('MainTab', { screen: 'Catalog' });
 					setActiveMenu('Catalog');
 				}}
 				isActive={activeMenu === 'Catalog'}
 			>
-				{{ iconName: 'desktop-outline', text: 'Каталог' }}
+				{{ iconName: 'map-outline' }}
 			</MenuButton>
 			<MenuButton
 				onPress={() => {
-					navigation.navigate('Favourite');
+					navigation.navigate('MainTab', { screen: 'Favourite' });
 					setActiveMenu('Favourite');
 				}}
 				isActive={activeMenu === 'Favourite'}
 			>
-				{{ iconName: 'heart-outline', text: 'Избранное' }}
+				{{ iconName: 'chatbubble-ellipses-outline' }}
 			</MenuButton>
 			<MenuButton
 				onPress={() => {
-					navigation.navigate('Assembly');
+					navigation.navigate('MainTab', { screen: 'Assembly' });
 					setActiveMenu('Assembly');
 				}}
 				isActive={activeMenu === 'Assembly'}
 			>
-				{{ iconName: 'person-outline', text: 'Мои сборки' }}
+				{{ iconName: 'person-outline' }}
 			</MenuButton>
 		</View>
 	);
 };
 
+
 const styles = StyleSheet.create({
 	menu: {
 		position: 'absolute',
-		bottom: 0,
+		bottom: 10,
 		left: 0,
 		right: 0,
+		borderRadius: 30,
+		backgroundColor: '#FFFFFF',
 		display: 'flex',
 		justifyContent: 'center',
 		flexDirection: 'row',
+		paddingVertical: 22,
+		paddingHorizontal: 30,
 		flex: 1,
-	},
-	menuBackground: {
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: '#111112',
 	},
 	menuButton: {
 		flex: 1,
 		paddingHorizontal: 'auto',
-		borderTopWidth: 1,
-		borderColor: 'gray',
 		alignSelf: 'center',
 		justifyContent: 'center',
 		alignItems: 'center',
@@ -100,10 +89,6 @@ const styles = StyleSheet.create({
 	menuButtonContent: {
 		flexDirection: 'column',
 		alignItems: 'center',
-	},
-	menuButtonText: {
-		color: 'gray',
-		fontSize: 12,
 	},
 });
 

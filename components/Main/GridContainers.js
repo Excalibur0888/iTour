@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, ScrollView, Animated, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import { addToFavorites, removeFromFavorites } from '../../redux/actions';
 import { getImageDownloadURL } from './firebaseStorageHelper';
 import { handlePressIn, handlePressOut} from './Animation/Animations';
@@ -84,7 +83,7 @@ const GridContainers = () => {
   return (
     <View>
       <Text style={styles.inteltitle}>Intel™</Text>
-			<ScrollView horizontal >
+			<ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View style={styles.intel}>
         <View style={styles.row}>
           <Block
@@ -115,7 +114,7 @@ const GridContainers = () => {
       </View>
 			</ScrollView>
       <Text style={styles.amdtitle}>AMD™</Text>
-			<ScrollView horizontal>
+			<ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <View style={styles.amd}>
 			<View style={styles.row}>
 				<Block
@@ -156,7 +155,7 @@ const getTitleStyles = (color, backgroundColor) => {
 		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
 		textAlign: 'center',
-		fontFamily: 'mt-text',
+		fontFamily: 'Raleway-Medium',
 		fontSize: 20,
 		backgroundColor,
 	};

@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/CarterOne-Regular.ttf",
+      "sha1": "088987baf523ac206b1d9b9e350bc72bf3949bd3"
+    },
+    {
+      "path": "assets/fonts/Montserrat-Bold.ttf",
+      "sha1": "84158976b050e30c90c9e320689c9ea445b17696"
+    },
+    {
+      "path": "assets/fonts/Raleway-Medium.ttf",
+      "sha1": "9d35f805e98f95e72f5d0a4ced7397584d7349be"
+    },
+    {
+      "path": "assets/fonts/REM-Light.ttf",
+      "sha1": "ba794304f58feb4c4084f3eb509ab41069cdc2c8"
+    }
+  ]
+}
