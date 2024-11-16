@@ -1,92 +1,27 @@
-import React, {useState} from "react";
-import { StyleSheet, View, TouchableOpacity, Image, Animated, Text } from "react-native";
+import React from 'react';
+import {StyleSheet, TouchableOpacity, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { gStyle } from '../../styles/style';
 
-import HeaderMenu from "../Main/HeaderMenu";
-
-const Header = ({setIsScreenDimmed}) => {
-	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const [menuIcon, setMenuIcon] = useState('menu-outline');
-	const menuAnimation = useState(new Animated.Value(0))[0];
-	const toggleMenu = () => {
-		if (isMenuOpen) {
-			Animated.timing(menuAnimation, {
-				toValue: 0,
-				duration: 300,
-				useNativeDriver: false,
-			}).start(() => {
-				setIsMenuOpen(false);
-				setMenuIcon('menu-outline');
-				setIsScreenDimmed(false);
-			});
-		} else {
-			setIsMenuOpen(true);
-			setMenuIcon('close-outline');
-			setIsScreenDimmed(true);
-			Animated.timing(menuAnimation, {
-				toValue: 1,
-				duration: 300,
-				useNativeDriver: false,
-			}).start();
-		}
-	};
-	return (
-		<View style={styles.header}>
-		<TouchableOpacity onPress={toggleMenu}>
-			<Icon name={menuIcon} size={50} color="white" />
+const Header = () => {
+  return (
+		<TouchableOpacity style={styles.header__location}>
+			<Icon style={{ marginRight: 5 }} name="location" size={20} color="#176FF2" />
+			<Text style={gStyle.text}>Рязань, Россия</Text>
+			<Icon name="chevron-down" size={20} color="#176FF2" />
 		</TouchableOpacity>
-		<View style={styles.titleContainer}>
-			<Image
-				source={require('../../assets/icon.png')}
-				style={styles.titleimage}
-				resizeMode="contain"
-			/>
-			<Text style={styles.title}>TechFusion</Text>
-		</View>
-		<TouchableOpacity>
-			<Icon name="search-outline" size={45} color="white" />
-		</TouchableOpacity>
-		{isMenuOpen && (
-			<TouchableOpacity onPress={toggleMenu} style={styles.closeButton}>
-				<Icon name="close-outline" size={50} color="white" />
-			</TouchableOpacity>
-		)}
-					{isMenuOpen && (
-		<HeaderMenu menuAnimation={menuAnimation} />
-	)}
-	</View>
-	)
-}
+  );
+};
 
 const styles = StyleSheet.create({
-	header: {
+	header__location: {
 		display: 'flex',
+		justifyContent: 'flex-end',
 		flexDirection: 'row',
-		justifyContent: 'space-between',
-		alignItems: 'center',
-		zIndex: 3,
-		paddingTop: 10,
-	},
-	titleContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-	},
-	titleimage: {
-		width: 40,
-		height: 50,
+		width: 'auto',
+		marginTop: 20,
 		marginRight: 10,
 	},
-	title: {
-		fontFamily: 'mt-name',
-		color: '#fff',
-		fontSize: 25,
-	},
-	closeButton: {
-		position: 'absolute',
-		top: 10,
-		left: 0,
-		zIndex: 2,
-	},
-})
+});
 
 export default Header;

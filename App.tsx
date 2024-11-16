@@ -16,7 +16,7 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="light-content" backgroundColor="#1e1e1e"/>
         <NavigateTab />
       </SafeAreaView>
     </Provider>
@@ -28,15 +28,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#111112',
   },
   splashText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 24,
   },
   safeArea: {
     flex: 1,
-    backgroundColor: '#111112',
+		color: '#fff',
   },
 });
 
