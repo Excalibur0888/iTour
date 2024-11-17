@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Animated, TouchableWithoutFeedback, ImageBackground } from "react-native";
-import { gStyle } from "../../styles/style";
+import { Text, View, ScrollView, Animated, TouchableWithoutFeedback, Image } from "react-native";
+import { gStyle } from "../../../styles/style";
 import { getImageDownloadURL } from "./firebaseStorageHelper";
+import styles from "./RecStyles";
 
 const Block = ({ imageSource, text }) => {
   const scaleValue = useRef(new Animated.Value(1)).current;
@@ -33,13 +34,12 @@ const Block = ({ imageSource, text }) => {
         ]}
       >
         <View style={styles.imageWrapper}>
-          <ImageBackground
+          <Image
             source={imageSource}
             style={styles.image}
             resizeMode="cover"
-          >
-            <Text style={gStyle.caption}>{text}</Text>
-          </ImageBackground>
+          />
+            <Text style={styles.caption}>{text}</Text>
         </View>
       </Animated.View>
     </TouchableWithoutFeedback>
@@ -72,34 +72,9 @@ const Recommend = () => {
 				<Block imageSource={{ uri: imageURLs[1]?.url }} text='Офисные'/>
 				<Block imageSource={{ uri: imageURLs[2]?.url }} text='Бюджетные'/>
 			</ScrollView>
+			
 		</View>
 	);
 };
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 15,
-    width: "100%",
-  },
-  block: {
-    position: "relative",
-    width: 240,
-    height: 120,
-    padding: 5,
-    marginBottom: 15,
-    marginRight: 20,
-  },
-  imageWrapper: {
-    flex: 1,
-    borderRadius: 15,
-    overflow: "hidden",
-  },
-  image: {
-    width: "100%",
-    height: "100%",
-  },
-});
 
 export default Recommend;

@@ -4,6 +4,7 @@ export const gStyle = StyleSheet.create({
 	title: {
 		fontSize: 18,
 		fontFamily: 'Montserrat-SemiBold',
+		marginBottom: 5,
 	},
 	subtitle: {
 		fontFamily: 'Montserrat-Regular',

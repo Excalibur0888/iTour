@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
 	row: {
 		flexDirection: 'row',
 		justifyContent: 'space-between',
+		marginBottom: 20,
 	},
 	captionContainer: {
 		position: 'absolute',
