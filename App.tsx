@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import favoritesReducer from './redux/reducers';
 import NavigateTab from './Navigation/NavigateTab';
+import YaMap from 'react-native-yamap';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +13,8 @@ const store = configureStore({
 });
 
 function App(): React.JSX.Element {
-
+	YaMap.init('97acf61a-31fe-4fa0-a71b-1b93b2055b77');
+	
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.safeArea}>

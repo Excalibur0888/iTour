@@ -31,16 +31,15 @@ const styles = StyleSheet.create({
 		color: '#fff',
 	},
 	block: {
-		position: 'relative',
-		width: 188,
+		height: 240,
 		backgroundColor: '#dadada',
 		borderRadius: 30,
-		alignItems: 'center',
-		marginBottom: 15,
 		marginRight: 20,
 	},
 	image: {
-		height: 240,
+		width: 188,
+		height: '100%',
+		borderRadius: 30,
 		marginBottom: 20,
 	},
 	favoriteButton: {

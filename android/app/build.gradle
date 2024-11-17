@@ -109,9 +109,13 @@ android {
 }
 
 dependencies {
-    // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
 		implementation project(':react-native-vector-icons')
+		implementation 'com.yandex.android:maps.mobile:4.8.1-navikit'
+		implementation 'com.google.android.gms:play-services-location:21.0.1'
+		implementation 'com.yandex.mapkit.styling:automotivenavigation:4.8.1'
+		implementation 'com.yandex.mapkit.styling:roadevents:4.8.1'
+		implementation project(':react-native-community-geolocation')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

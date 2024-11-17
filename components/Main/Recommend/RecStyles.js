@@ -10,20 +10,12 @@ const styles = StyleSheet.create({
   block: {
     height: 160,
     position: "relative",
+		borderWidth: 1,
+		borderColor: '#e0e0e0',
+		padding: 4,
 		borderRadius: 25,
-    marginBottom: 200,
+    marginBottom: 70,
     marginRight: 20,
-		shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3,
-    elevation: 20,
-  },
-  imageWrapper: {
-    flex: 1,
   },
   image: {
 		borderRadius: 25,
@@ -31,10 +23,24 @@ const styles = StyleSheet.create({
     height: 120,
 		backgroundColor: '#dadada',
   },
+	dimensions: {
+		position: 'absolute',
+		borderRadius: 25,
+		paddingHorizontal: 4,
+		paddingVertical: 1,
+		borderColor: '#fff',
+		borderWidth: 3,
+		bottom: 20,
+		left: 170,
+		backgroundColor: '#3A544F',
+	},
+	dimensions__text: {
+		fontFamily: 'Montserrat-SemiBold',
+		color: '#fff',
+	},
 	caption: {
 		fontFamily: 'Montserrat-SemiBold',
 		fontSize: 14,
-		position: 'relative',
 	},
 });
 

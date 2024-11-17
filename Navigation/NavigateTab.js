@@ -1,13 +1,13 @@
 import React from 'react';
 import Main from '../components/Main/Main';
-import Assembly from '../components/Assembly/Assembly';
-import Catalog from '../components/Catalog/Catalog';
-import Favourite from '../components/Favourite/Favourite';
-import PlusStackScreen from '../components/newPC/PlusStackScreen';
+import Profile from '../components/Profile/Profile';
+import Map from '../components/Map/Map';
+import PlusStackScreen from '../components/Modal/PlusStackScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Menu from '../components/Menu';
+import Chat from '../components/Chat/Chat';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -20,9 +20,9 @@ const MainTab = () => (
     }}
   >
     <Tab.Screen name="Main" component={Main} />
-    <Tab.Screen name="Assembly" component={Assembly} />
-    <Tab.Screen name="Catalog" component={Catalog} />
-    <Tab.Screen name="Favourite" component={Favourite} />
+    <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Screen name="Map" component={Map} />
+		<Tab.Screen name="Chat" component={Chat} />
   </Tab.Navigator>
 );
 

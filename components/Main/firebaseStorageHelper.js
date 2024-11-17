@@ -2,7 +2,7 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebaseConfig';
 
 export const getImageDownloadURL = async (imageName) => {
-  const imageRef = ref(storage, `PCs/${imageName}`);
+  const imageRef = ref(storage, `${imageName}`);
   try {
     const downloadURL = await getDownloadURL(imageRef);
     return downloadURL;

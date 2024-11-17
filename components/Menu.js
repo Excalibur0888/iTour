@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, TouchableHighlight} from 'react-native';
+import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Home from 'react-native-vector-icons/Octicons';
 
@@ -9,7 +9,7 @@ const MenuButton = ({onPress, children, isActive}) => {
   const iconColor = isActive ? '#176FF2' : '#B8B8B8';
 
   return (
-    <TouchableHighlight style={styles.menuButton} onPress={onPress}>
+    <TouchableOpacity style={styles.menuButton} onPress={onPress}>
       <View style={styles.menuButtonContent}>
         {children.iconName === 'home' ? (
           <Home name={children.iconName} size={30} color={iconColor} />
@@ -17,7 +17,7 @@ const MenuButton = ({onPress, children, isActive}) => {
           <Icon name={children.iconName} size={30} color={iconColor} />
         )}
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 
@@ -37,26 +37,26 @@ const Menu = () => {
       </MenuButton>
       <MenuButton
         onPress={() => {
-          navigation.navigate('MainTab', {screen: 'Catalog'});
-          setActiveMenu('Catalog');
+          navigation.navigate('MainTab', {screen: 'Map'});
+          setActiveMenu('Map');
         }}
-        isActive={activeMenu === 'Catalog'}>
+        isActive={activeMenu === 'Map'}>
         {{iconName: 'map-outline'}}
       </MenuButton>
       <MenuButton
         onPress={() => {
-          navigation.navigate('MainTab', {screen: 'Favourite'});
-          setActiveMenu('Favourite');
+          navigation.navigate('MainTab', {screen: 'Chat'});
+          setActiveMenu('Chat');
         }}
-        isActive={activeMenu === 'Favourite'}>
+        isActive={activeMenu === 'Chat'}>
         {{iconName: 'chatbubble-ellipses-outline'}}
       </MenuButton>
       <MenuButton
         onPress={() => {
-          navigation.navigate('MainTab', {screen: 'Assembly'});
-          setActiveMenu('Assembly');
+          navigation.navigate('MainTab', {screen: 'Profile'});
+          setActiveMenu('Profile');
         }}
-        isActive={activeMenu === 'Assembly'}>
+        isActive={activeMenu === 'Profile'}>
         {{iconName: 'person-outline'}}
       </MenuButton>
     </View>
@@ -66,7 +66,7 @@ const Menu = () => {
 const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 5,
     left: 0,
     right: 0,
     borderRadius: 30,
