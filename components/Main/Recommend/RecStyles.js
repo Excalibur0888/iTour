@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
 	caption: {
 		fontFamily: 'Montserrat-SemiBold',
 		fontSize: 14,
+		color: '#000',
 	},
 });
 

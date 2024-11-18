@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   main__title: {
     fontSize: 32,
     fontFamily: 'Montserrat-Medium',
+		color: '#000'
   },
 	text__more: {
 		color: '#176FF2',

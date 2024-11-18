@@ -32,12 +32,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   splashText: {
-    color: '#fff',
+    color: '#000',
     fontSize: 24,
   },
   safeArea: {
     flex: 1,
-		color: '#fff',
+		color: '#000',
   },
 });
 
