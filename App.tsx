@@ -5,6 +5,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import favoritesReducer from './redux/reducers';
 import NavigateTab from './Navigation/NavigateTab';
 import YaMap from 'react-native-yamap';
+import { Geocoder } from 'react-native-yamap';
 
 const store = configureStore({
   reducer: {
@@ -14,11 +15,12 @@ const store = configureStore({
 
 function App(): React.JSX.Element {
 	YaMap.init('97acf61a-31fe-4fa0-a71b-1b93b2055b77');
-	
+	Geocoder.init('6a6fef2d-6fbd-413f-9c3f-94a14072bf33');
+
   return (
     <Provider store={store}>
       <SafeAreaView style={styles.safeArea}>
-        <StatusBar barStyle="light-content" backgroundColor="#1e1e1e"/>
+        <StatusBar barStyle="dark-content" backgroundColor="#fff"/>
         <NavigateTab />
       </SafeAreaView>
     </Provider>
@@ -26,11 +28,6 @@ function App(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  splashScreen: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   splashText: {
     color: '#000',
     fontSize: 24,
@@ -38,6 +35,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
 		color: '#000',
+		backgroundColor: '#fff'
   },
 });
 

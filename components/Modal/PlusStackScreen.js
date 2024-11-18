@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
   caption: {
     fontSize: 18,
     fontWeight: 'bold',
+		color: '#000',
   },
 });
 
