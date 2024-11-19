@@ -11,7 +11,7 @@ const Main = () => {
   return (
     <View style={styles.main}>
       <Header />
-      <ScrollView contentContainerStyle={styles.contentContainer}>
+      <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
         <Text style={gStyle.subtitle}>Исследуйте</Text>
         <Text style={styles.main__title}>Рязань</Text>
         <Search />

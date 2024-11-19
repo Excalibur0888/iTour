@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'row',
-    paddingVertical: 22,
-    paddingHorizontal: 30,
+    padding: 20,
     flex: 1,
     shadowColor: '#000000',
     shadowOffset: {

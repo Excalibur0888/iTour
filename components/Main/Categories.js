@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   menuItem: {
-    marginRight: 15,
+    marginRight: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 25,

@@ -51,8 +51,7 @@ const Map = () => {
         setLoading(false);
       },
       (error) => {
-        alert('Не удалось получить геопозицию');
-        setLoading(false);
+        setTimeout(getCurrentLocation, 1);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
