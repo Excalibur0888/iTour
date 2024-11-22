@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Home from 'react-native-vector-icons/Octicons';
 
 import {useNavigation} from '@react-navigation/native';
 
@@ -11,11 +10,7 @@ const MenuButton = ({onPress, children, isActive}) => {
   return (
     <TouchableOpacity style={styles.menuButton} onPress={onPress}>
       <View style={styles.menuButtonContent}>
-        {children.iconName === 'home' ? (
-          <Home name={children.iconName} size={30} color={iconColor} />
-        ) : (
-          <Icon name={children.iconName} size={30} color={iconColor} />
-        )}
+        <Icon name={children.iconName} size={30} color={iconColor} />
       </View>
     </TouchableOpacity>
   );
@@ -33,7 +28,7 @@ const Menu = () => {
           setActiveMenu('Main');
         }}
         isActive={activeMenu === 'Main'}>
-        {{iconName: 'home'}}
+        {{iconName: 'home-outline'}}
       </MenuButton>
       <MenuButton
         onPress={() => {
