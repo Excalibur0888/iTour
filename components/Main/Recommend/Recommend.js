@@ -9,7 +9,7 @@ const Recommend = () => {
   useEffect(() => {
     const fetchImageURLs = async () => {
       const images = [
-				'Волшебный город.webp',
+				'Древний город Рязань.webp',
 				'Памятник Коловрату.webp',
 				'Рязанский кремль.webp',
 			];
