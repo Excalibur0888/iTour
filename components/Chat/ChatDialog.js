@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
   },
   backButton: {
-    marginRight: 10,
+    marginRight: 20,
   },
   chatInfo: {
     marginLeft: 10,
