@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import { gStyle } from "../../styles/style";
 
-const Categories = () => {
+const Categories = ({ activeTab, setActiveTab }) => {
   const menuItems = [
     { id: 1, label: "Локация" },
     { id: 2, label: "Отели" },
@@ -10,8 +10,6 @@ const Categories = () => {
     { id: 4, label: "Активности" },
     { id: 5, label: "Транспорт" },
   ];
-
-  const [activeTab, setActiveTab] = useState(1);
 
   const handleTabPress = (id) => {
     setActiveTab(id);

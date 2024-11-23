@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import YaMap from 'react-native-yamap';
 import Geolocation from '@react-native-community/geolocation';
 import { PermissionsAndroid } from 'react-native';
 import SearchInput from './SearchInput';
@@ -62,6 +61,11 @@ const Map = () => {
     setSearchLocation({ latitude: lat, longitude: lon });
   };
 
+  const removeMarker = () => {
+    setMarkerCoordinates(null);
+    setSearchLocation(null);
+  };
+
   useEffect(() => {
     requestPermission();
   }, []);
@@ -92,10 +96,9 @@ const Map = () => {
         searchLocation={searchLocation}
         mapRef={mapRef}
         handleMapPress={handleMapPress}
+        removeMarker={removeMarker} // Передача функции удаления маркера
       />
-      <LocationInfo
-        markerCoordinates={markerCoordinates}
-      />
+      <LocationInfo markerCoordinates={markerCoordinates} />
     </View>
   );
 };

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     marginVertical: 10,
     borderWidth: 3,
-    borderColor: '#4A6EE0',
+    borderColor: '#176FF2',
     shadowColor: '#0ff',
     shadowOffset: {
       width: 0,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   button: {
     fontFamily: 'Montserrat-SemiBold',
-    backgroundColor: '#4A6EE0',
+    backgroundColor: '#176FF2',
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 15,
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   buttonSecondary: {
     fontFamily: 'Montserrat-SemiBold',
     backgroundColor: '#6B7280',
+		paddingHorizontal: 55,
   },
   buttonText: {
     fontFamily: 'Montserrat-SemiBold',
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
   statNumber: {
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 24,
-    color: '#4A6EE0',
+    color: '#176FF2',
   },
   statLabel: {
     fontFamily: 'Montserrat-SemiBold',
@@ -95,23 +96,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#FFF',
-  },
-  listContainer: {
-    marginTop: 20,
-  },
-  listTitle: {
-    fontFamily: 'Montserrat-SemiBold',
-    fontSize: 12,
-    color: '#000',
-    marginBottom: 10,
-  },
-  listItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
   },
   itemNumber: {
     fontFamily: 'Montserrat-SemiBold',
@@ -160,15 +144,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#000',
   },
+	lineIcon: {
+		flexDirection: 'row',
+		alignItems: 'center',
+
+	},
   scoresText: {
     fontSize: 14,
 		fontFamily: 'Montserrat-Medium',
     marginHorizontal: 5,
-    color: '#4A6EE0',
+    color: '#176FF2',
   },
   star: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
+		marginRight: 10,
   },
   starContainer: {
     flexDirection: 'row',

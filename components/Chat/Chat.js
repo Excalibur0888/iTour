@@ -37,26 +37,27 @@ const Chat = ({ navigation }) => {
 
   return (
     <View style={styles.main}>
-			<Header/>
+      <Header />
       <Text style={styles.title}>Сообщения</Text>
       <View style={styles.chatList}>
         {chats.map((chat) => (
           <TouchableOpacity
-					key={chat.id}
-					style={styles.chatItem}
-					onPress={() =>
-						navigation.navigate('ChatDialog', {
-							chatName: chat.name,
-							avatar: chat.avatar,
-							initialMessages: chat.messages,
-						})
-					}
-				>
-				
+            key={chat.id}
+            style={styles.chatItem}
+            onPress={() =>
+              navigation.navigate('ChatDialog', {
+                chatName: chat.name,
+                avatar: chat.avatar,
+                initialMessages: chat.messages,
+              })
+            }
+          >
             <Image source={chat.avatar} style={styles.avatar} />
             <View style={styles.chatContent}>
               <Text style={styles.chatName}>{chat.name}</Text>
-              <Text style={styles.lastMessage}>{chat.lastMessage}</Text>
+              <Text style={styles.lastMessage} numberOfLines={1} ellipsizeMode="tail">
+                {chat.lastMessage}
+              </Text>
             </View>
             {chat.unreadCount && (
               <View style={styles.unreadBadge}>
