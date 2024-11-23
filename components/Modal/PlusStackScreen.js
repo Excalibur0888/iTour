@@ -1,16 +1,31 @@
-import React, { useState } from "react";
-import { View, StyleSheet, TouchableOpacity, Text, Image, ScrollView } from "react-native";
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Image,
+  ScrollView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation, useRoute } from "@react-navigation/native";
-import BackButton from "../BackButton";
+import { useNavigation, useRoute } from '@react-navigation/native';
+import BackButton from '../BackButton';
+import { addToFavorites, removeFromFavorites } from '../../redux/actions';
+import FavoriteButton from '../FavoriteButton';
 
 const PlusStackScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { caption, image } = route.params;
+  const favorites = useSelector((state) => state.favorites);
+  const { caption, imageSource, rating } = route.params;
+
   const [expanded, setExpanded] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+
+  const dispatch = useDispatch();
+
+  // Массив удобств
   const conveniences = [
     { icon: 'wifi', text: 'Wi-Fi' },
     { icon: 'restaurant', text: 'Питание' },
@@ -18,27 +33,39 @@ const PlusStackScreen = () => {
     { icon: 'water', text: 'Бассейн' },
   ];
 
-  const handleGoBack = () => {
-    navigation.goBack();
+  // Проверка, добавлено ли в избранное
+  const isFavorite = favorites.some((item) => item.caption === caption);
+
+  // Добавление/удаление из избранного
+  const handleToggleFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFromFavorites({ caption }));
+    } else {
+      dispatch(
+        addToFavorites({
+          caption,
+          image: imageSource,
+          rating,
+        })
+      );
+    }
   };
 
   return (
     <View style={styles.container}>
+      <BackButton onPress={() => navigation.goBack()} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        {/* Изображение и кнопка избранного */}
         <View style={styles.imageContainer}>
-          <Image source={image} style={styles.image}/>
-          <BackButton onPress={handleGoBack} />
-          
-          <TouchableOpacity 
+          <Image source={imageSource} style={styles.image} />
+          <FavoriteButton
+            selected={isFavorite}
+            onToggle={handleToggleFavorite}
             style={styles.heartButton}
-            onPress={() => setIsLiked(!isLiked)}>
-            <Icon 
-              name={isLiked ? "heart" : "heart-outline"} 
-              size={24} 
-              color="#FF0000" 
-            />
-          </TouchableOpacity>
+          />
         </View>
+
+        {/* Содержимое экрана */}
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>{caption}</Text>
@@ -49,21 +76,36 @@ const PlusStackScreen = () => {
 
           <View style={styles.ratingRow}>
             <Icon name="star" size={16} color="#FFD700" />
-            <Text style={styles.rating}>4.5 (355 Отзывов)</Text>
+            <Text style={styles.rating}>{rating} (355 Отзывов)</Text>
           </View>
 
+          {/* Описание */}
           <View>
-            <Text style={[styles.description, !expanded && styles.collapsedText]} numberOfLines={expanded ? null : 5}>
-              Успенский собор в Рязани - один из древнейших православных храмов России, построенный в 1693-1699 годах. Это величественное пятиглавое здание является главным храмом Рязанского кремля и архитектурной доминантой города. Собор славится своими уникальными фресками XVII века, богатым иконостасом и впечатляющей архитектурой в стиле нарышкинского барокко. Высота собора составляет 72 метра, что делает его одним из самых высоких храмов своего времени. Внутреннее убранство поражает своей красотой и величием, а с смотровой площадки открывается захватывающий вид на город и реку Оку.
+            <Text
+              style={[styles.description, !expanded && styles.collapsedText]}
+              numberOfLines={expanded ? null : 5}
+            >
+              Успенский собор в Рязани - один из древнейших православных храмов
+              России, построенный в 1693-1699 годах. Это величественное
+              пятиглавое здание является главным храмом Рязанского кремля и
+              архитектурной доминантой города. Собор славится своими уникальными
+              фресками XVII века, богатым иконостасом и впечатляющей
+              архитектурой в стиле нарышкинского барокко. Высота собора
+              составляет 72 метра, что делает его одним из самых высоких храмов
+              своего времени. Внутреннее убранство поражает своей красотой и
+              величием, а с смотровой площадки открывается захватывающий вид на
+              город и реку Оку.
             </Text>
             <TouchableOpacity onPress={() => setExpanded(!expanded)}>
               <Text style={styles.readMoreButton}>
-                {expanded ? 'Свернуть ' : 'Подробнее '}
+                {expanded ? 'Свернуть' : 'Подробнее'}
               </Text>
             </TouchableOpacity>
           </View>
-         <Text style={styles.conveniencesTitle}>Удобства</Text>
-         <View style={styles.conveniences}>
+
+          {/* Удобства */}
+          <Text style={styles.conveniencesTitle}>Удобства</Text>
+          <View style={styles.conveniences}>
             {conveniences.map((item, index) => (
               <View key={index} style={styles.convenienceItem}>
                 <Icon name={item.icon} style={styles.convenienceIcon} />
@@ -73,19 +115,27 @@ const PlusStackScreen = () => {
           </View>
         </View>
       </ScrollView>
+
+      {/* Подвал с кнопкой бронирования */}
       <View style={styles.footer}>
         <View>
           <Text style={styles.labelPrice}>Цена</Text>
-          <Text style={styles.price}>$199</Text>
+          <Text style={styles.price}>500₽</Text>
         </View>
-        <TouchableOpacity 
-          style={isBooked ? styles.cancelButton : styles.bookButton} 
+        <TouchableOpacity
+          style={isBooked ? styles.cancelButton : styles.bookButton}
           onPress={() => setIsBooked(!isBooked)}
         >
-          <Text style={isBooked ? styles.cancelButtonText : styles.bookButtonText}>
+          <Text
+            style={isBooked ? styles.cancelButtonText : styles.bookButtonText}
+          >
             {isBooked ? 'Отменить' : 'Забронировать'}
           </Text>
-          <Icon name="arrow-forward" size={20} color={isBooked ? "#4169E1" : "#FFF"} />
+          <Icon
+            name="arrow-forward"
+            size={20}
+            color={isBooked ? '#4169E1' : '#FFF'}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -123,7 +173,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   content: {
     padding: 20,
@@ -138,7 +188,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 24,
     color: '#000',
-    fontWeight: 'bold',
   },
   mapLink: {
     fontFamily: 'Montserrat-SemiBold',
@@ -151,7 +200,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   rating: {
-    fontFamily: 'Montserrat-Regular',
+    fontFamily: 'Montserrat-Medium',
     marginLeft: 5,
     color: '#000',
   },
@@ -178,7 +227,6 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     width: '22%',
-
   },
   convenienceText: {
     marginTop: 5,
@@ -188,7 +236,6 @@ const styles = StyleSheet.create({
   convenienceIcon: {
     color: '#b8b8b8',
     fontSize: 32,
-    
   },
   footer: {
     flexDirection: 'row',

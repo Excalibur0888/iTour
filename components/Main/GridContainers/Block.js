@@ -1,40 +1,49 @@
-import React, {useState, useRef} from 'react';
-import {useDispatch} from 'react-redux';
+import React, { useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import styles from './ContainersStyles';
-import {View, Text, TouchableOpacity, TouchableWithoutFeedback, Animated, Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {addToFavorites, removeFromFavorites} from '../../../redux/actions';
-import {handlePressIn, handlePressOut} from '../Animation/Animations';
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Animated,
+  Image,
+} from 'react-native';
+import { addToFavorites, removeFromFavorites } from '../../../redux/actions';
+import { handlePressIn, handlePressOut } from '../Animation/Animations';
+import FavoriteButton from '../../FavoriteButton';
+import styles from './ContainersStyles';
 
 const Block = ({ blockCaption, imageSource, rating }) => {
-  const [selected, setSelected] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const scaleValue = useRef(new Animated.Value(1)).current;
 
+  // Получаем глобальное состояние избранного
+  const favorites = useSelector((state) => state.favorites);
+  const isFavorite = favorites.some((item) => item.caption === blockCaption);
+
+  // Обработчик для переключения избранного
   const handleToggleFavorite = () => {
-    const updatedSelected = !selected;
-    setSelected(updatedSelected);
-
-    if (updatedSelected) {
+    if (isFavorite) {
+      dispatch(removeFromFavorites({ caption: blockCaption }));
+    } else {
       dispatch(
         addToFavorites({
           caption: blockCaption,
           image: imageSource,
           rating: rating,
-        }),
+        })
       );
-    } else {
-      dispatch(removeFromFavorites({ caption: blockCaption }));
     }
   };
 
-  const scaleValue = useRef(new Animated.Value(1)).current;
-
+  // Навигация к детальной информации
   const handleNavigateToDetails = () => {
     navigation.navigate('PlusStackScreen', {
       caption: blockCaption,
-      image: imageSource,
+      imageSource: imageSource,
+      rating: rating,
     });
   };
 
@@ -45,24 +54,18 @@ const Block = ({ blockCaption, imageSource, rating }) => {
       onPress={handleNavigateToDetails}
     >
       <Animated.View style={[styles.block, { transform: [{ scale: scaleValue }] }]}>
-        <TouchableOpacity
+        <FavoriteButton
+          selected={isFavorite}
+          onToggle={handleToggleFavorite}
           style={[
             styles.favoriteButton,
-            selected && styles.favoriteButtonSelected,
+            isFavorite && styles.favoriteButtonSelected,
           ]}
-          onPress={handleToggleFavorite}
-        >
-          <Icon
-            name={selected ? 'heart' : 'heart-outline'}
-            size={20}
-            color={selected ? 'red' : 'black'}
-          />
-        </TouchableOpacity>
+        />
         <Image
           source={imageSource}
           style={styles.image}
           resizeMode="cover"
-          lazy
         />
         <View style={styles.captionContainer}>
           <Text style={styles.caption} numberOfLines={1}>
