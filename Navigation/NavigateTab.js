@@ -3,6 +3,7 @@ import Main from '../components/Main/Main';
 import Profile from '../components/Profile/Profile';
 import Map from '../components/Map/Map';
 import PlusStackScreen from '../components/Modal/PlusStackScreen';
+import ChatDialog from '../components/Chat/ChatDialog';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,6 +36,7 @@ export default function NavigateTab() {
         }}
       >
         <Stack.Screen name="MainTab" component={MainTab} />
+				<Stack.Screen name="ChatDialog" component={ChatDialog} />
         <Stack.Screen name="PlusStackScreen" component={PlusStackScreen} />
       </Stack.Navigator>
     </NavigationContainer>
