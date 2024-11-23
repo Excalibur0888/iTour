@@ -1,13 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+
+import Icon from 'react-native-vector-icons/Ionicons';
 import { gStyle } from '../../styles/style';
 
 const Favourite = () => {
+	const navigation = useNavigation();
   const favorites = useSelector((state) => state.favorites);
-
+	const handleGoBack = () => {
+    navigation.goBack();
+  };
   return (
     <View style={gStyle.main}>
+			<TouchableOpacity onPress={handleGoBack}>
+          <Icon name='chevron-back-outline' size={50} color="black" />
+        </TouchableOpacity>
       <ScrollView>
         {favorites.map((item, index) => (
           <View key={index} style={styles.itemContainer}>

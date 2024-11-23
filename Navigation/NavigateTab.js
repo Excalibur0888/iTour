@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Menu from '../components/Menu';
 import Chat from '../components/Chat/Chat';
+import Favourite from '../components/Profile/Favourite';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,6 +38,7 @@ export default function NavigateTab() {
       >
         <Stack.Screen name="MainTab" component={MainTab} />
 				<Stack.Screen name="ChatDialog" component={ChatDialog} />
+				<Stack.Screen name="Favourite" component={Favourite} />
         <Stack.Screen name="PlusStackScreen" component={PlusStackScreen} />
       </Stack.Navigator>
     </NavigationContainer>
