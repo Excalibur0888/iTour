@@ -58,6 +58,8 @@ const Menu = () => {
   );
 };
 
+
+
 const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
