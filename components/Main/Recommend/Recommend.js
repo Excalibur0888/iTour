@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
-import { getImageDownloadURL } from "../firebaseStorageHelper";
+import { getImageDownloadURL } from "../../firebaseStorageHelper";
 import styles from "./RecStyles";
 import Block from "./Block";
 

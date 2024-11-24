@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { View, ScrollView,} from 'react-native';
 import Block from './Block';
-import {getImageDownloadURL} from '../firebaseStorageHelper';
+import {getImageDownloadURL} from '../../firebaseStorageHelper';
 import styles from './ContainersStyles';
 
 const GridContainers = () => {
