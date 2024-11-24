@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Header/Header';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const Chat = ({ navigation }) => {
   const chats = [
@@ -39,7 +39,7 @@ const Chat = ({ navigation }) => {
     <View style={styles.main}>
       <Header />
       <Text style={styles.title}>Сообщения</Text>
-      <View style={styles.chatList}>
+      <ScrollView style={styles.chatList} showsVerticalScrollIndicator={false}>
         {chats.map((chat) => (
           <TouchableOpacity
             key={chat.id}
@@ -66,7 +66,7 @@ const Chat = ({ navigation }) => {
             )}
           </TouchableOpacity>
         ))}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 24,
 		fontFamily: 'Montserrat-SemiBold',
-		marginBottom: 20,
+		marginBottom: 10,
 		color: '#000',
 		marginLeft: 15
 	},

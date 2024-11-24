@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 5,
+		gap: 10,
   },
   button: {
     fontFamily: 'Montserrat-SemiBold',
@@ -50,12 +50,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 15,
-    marginRight: 10,
   },
   buttonSecondary: {
     fontFamily: 'Montserrat-SemiBold',
     backgroundColor: '#6B7280',
-		paddingHorizontal: 55,
   },
   buttonText: {
     fontFamily: 'Montserrat-SemiBold',
@@ -64,14 +62,15 @@ const styles = StyleSheet.create({
   },
   statsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    margin: 10,
+    justifyContent: 'center',
+    marginVertical: 10,
+		gap: 10,
   },
   statBox: {
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 30,
-    padding: 20,
+    padding: '3%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -119,6 +118,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+		marginBottom: 120,
   },
   lineItem: {
     flexDirection: 'row',

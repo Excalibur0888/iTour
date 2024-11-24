@@ -55,7 +55,6 @@ const PlusStackScreen = () => {
     <View style={styles.container}>
       <BackButton onPress={() => navigation.goBack()} />
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        {/* Изображение и кнопка избранного */}
         <View style={styles.imageContainer}>
           <Image source={imageSource} style={styles.image} />
           <FavoriteButton
@@ -65,7 +64,6 @@ const PlusStackScreen = () => {
           />
         </View>
 
-        {/* Содержимое экрана */}
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>{caption}</Text>
@@ -79,7 +77,6 @@ const PlusStackScreen = () => {
             <Text style={styles.rating}>{rating} (355 Отзывов)</Text>
           </View>
 
-          {/* Описание */}
           <View>
             <Text
               style={[styles.description, !expanded && styles.collapsedText]}
@@ -103,7 +100,6 @@ const PlusStackScreen = () => {
             </TouchableOpacity>
           </View>
 
-          {/* Удобства */}
           <Text style={styles.conveniencesTitle}>Удобства</Text>
           <View style={styles.conveniences}>
             {conveniences.map((item, index) => (
@@ -116,7 +112,6 @@ const PlusStackScreen = () => {
         </View>
       </ScrollView>
 
-      {/* Подвал с кнопкой бронирования */}
       <View style={styles.footer}>
         <View>
           <Text style={styles.labelPrice}>Цена</Text>
