@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import { gStyle } from "../../styles/style";
-import GridContainers from "./GridContainers/GridContainers";
 import Categories from "./Categories";
 import Header from "../Header/Header";
 import Search from "./Search";
-import Recommend from "./Recommend/Recommend";
+import LocationComponent from "./Pages/LocationComponent";
+import HotelsComponent from "./Pages/HotelsComponent";
+import FoodComponent from "./Pages/FoodComponent";
+import ActivitiesComponent from './Pages/ActivitiesComponent';
+import TransportComponent from './Pages/TransportComponent';
 
 const Main = () => {
   const [activeTab, setActiveTab] = useState(1);
@@ -14,21 +17,16 @@ const Main = () => {
     switch (activeTab) {
       case 1: // Локация
         return (
-          <>
-						<Text style={gStyle.title}>Популярное</Text>
-            <GridContainers />
-            <Text style={gStyle.title}>Рекомендуем</Text>
-            <Recommend />
-          </>
+          <LocationComponent/>
         );
       case 2: // Отели
-        return <Text style={gStyle.title}>Список отелей</Text>;
+        return <HotelsComponent/>
       case 3: // Еда
-        return <Text style={gStyle.title}>Список ресторанов</Text>;
+        return <FoodComponent/>
       case 4: // Активности
-        return <Text style={gStyle.title}>Список активностей</Text>;
+        return <ActivitiesComponent/>
       case 5: // Транспорт
-        return <Text style={gStyle.title}>Варианты транспорта</Text>;
+        return <TransportComponent/>
       default:
         return null;
     }
