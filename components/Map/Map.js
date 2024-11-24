@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, TouchableHighlight } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import { PermissionsAndroid } from 'react-native';
 import SearchInput from './SearchInput';
+import Icon from 'react-native-vector-icons/Ionicons';
 import SuggestionsList from './SuggestionsList';
 import LocationInfo from './LocationInfo';
 import MapView from './MapView';
@@ -15,6 +16,7 @@ const Map = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [searchLocation, setSearchLocation] = useState(null);
   const [markerCoordinates, setMarkerCoordinates] = useState(null);
+  const [nightmode, setNightmode] = useState(false);  // Добавляем состояние для ночного режима
   const mapRef = useRef(null);
 
   const requestPermission = async () => {
@@ -66,6 +68,10 @@ const Map = () => {
     setSearchLocation(null);
   };
 
+  const handleNightmodeChange = () => {
+    setNightmode((prev) => !prev); // Переключаем ночной режим
+  };
+
   useEffect(() => {
     requestPermission();
   }, []);
@@ -85,6 +91,12 @@ const Map = () => {
         setSearchText={setSearchText}
         setSuggestions={setSuggestions}
       />
+      <TouchableHighlight
+        style={[styles.nightmode, nightmode && styles.nightmodeActive]}
+        onPress={handleNightmodeChange}
+      >
+        <Icon name="moon" size={25} color={nightmode ? "#1E90FF" : "#606060"} />
+      </TouchableHighlight>
       <SuggestionsList
         suggestions={suggestions}
         setSearchLocation={setSearchLocation}
@@ -96,7 +108,8 @@ const Map = () => {
         searchLocation={searchLocation}
         mapRef={mapRef}
         handleMapPress={handleMapPress}
-        removeMarker={removeMarker} // Передача функции удаления маркера
+        removeMarker={removeMarker}
+        nightmode={nightmode}
       />
       <LocationInfo markerCoordinates={markerCoordinates} />
     </View>

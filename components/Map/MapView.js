@@ -4,14 +4,15 @@ import markerIcon from '../../assets/marker.png';
 import userLocationIcon from '../../assets/userLocationIcon.png';
 import styles from './styles';
 
-const MapView = ({ currentLocation, searchLocation, mapRef, handleMapPress, removeMarker }) => {
+const MapView = ({ currentLocation, searchLocation, mapRef, handleMapPress, removeMarker, nightmode }) => {
   return (
     <YaMap
       ref={mapRef}
-      style={styles.map}
+			style={styles.map}
+			nightMode={nightmode}
       rotateGesturesEnabled={false}
-      mapType={'vector'}
       userLocationIcon={userLocationIcon}
+      userLocationAccuracyFillColor='#d45f5f'
       initialRegion={{
         lat: currentLocation.latitude,
         lon: currentLocation.longitude,

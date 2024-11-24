@@ -79,6 +79,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
+	nightmode: {
+    backgroundColor: '#fff',
+    position: 'absolute',
+    padding: 10,
+    borderRadius: 50,
+    top: 70,
+    left: 10,
+    zIndex: 2,
+  },
+  nightmodeActive: {
+    backgroundColor: '#000',
+  },
 });
 
 export default styles;
