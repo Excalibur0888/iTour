@@ -9,35 +9,60 @@ const Favourite = () => {
 
   return (
     <View style={gStyle.main}>
-			<BackButton/>
-      <ScrollView>
-        {favorites.map((item, index) => (
-          <View key={index} style={styles.itemContainer}>
-            <Image source={item.image} style={styles.image} />
-            <Text style={styles.caption}>{item.caption}</Text>
-						<Text style={styles.caption}>{item.rating}</Text>
-          </View>
-        ))}
+      <BackButton />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.gridContainer}>
+          {favorites.map((item, index) => (
+            <View key={index} style={styles.card}>
+              <Image source={item.image} style={styles.image} />
+              <Text style={styles.caption}>{item.caption}</Text>
+              <Text style={styles.rating}>Рейтинг: {item.rating}</Text>
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  itemContainer: {
-    alignItems: 'center',
+  scrollView: {
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+  },
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  card: {
+    width: '48%',
+    backgroundColor: '#fff',
+    borderRadius: 10,
     marginBottom: 20,
+    overflow: 'hidden',
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 10,
+    width: '100%',
+    height: 150,
   },
   caption: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-		color: '#000',
+    marginVertical: 5,
+    color: '#000',
+  },
+  rating: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 10,
+    color: '#555',
   },
 });
 
