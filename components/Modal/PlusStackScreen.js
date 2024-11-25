@@ -52,7 +52,7 @@ const PlusStackScreen = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={() => navigation.goBack()} />
-      <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <ScrollView contentContainerStyle={{flexGrow: 1}} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image source={imageSource} style={styles.image} />
           <FavoriteButton
@@ -89,7 +89,7 @@ const PlusStackScreen = () => {
           </View>
 
           <Text style={styles.conveniencesTitle}>Удобства</Text>
-          <View style={styles.conveniences}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.conveniences}>
             {conveniences.map((id, index) => {
               const convenienceItem = conveniencesList.find(c => c.id === id);
               if (!convenienceItem) return null;
@@ -104,7 +104,7 @@ const PlusStackScreen = () => {
                 </View>
               );
             })}
-          </View>
+          </ScrollView>
 
           <View style={styles.footer}>
             <View>

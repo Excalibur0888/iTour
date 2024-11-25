@@ -40,7 +40,7 @@ const Block = ({ blockCaption, imageSource, rating }) => {
 
   // Навигация к детальной информации
   const handleNavigateToDetails = () => {
-    navigation.navigate('PlusStackScreen', {
+    navigation.navigate('SightScreen', {
       caption: blockCaption,
       imageSource: imageSource,
       rating: rating,

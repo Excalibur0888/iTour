@@ -75,15 +75,15 @@ const styles = StyleSheet.create({
   },
   conveniences: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 100,
+    marginBottom: 120,
   },
   convenienceItem: {
     alignItems: 'center',
     backgroundColor: '#f0f3fb',
+		marginRight: 10,
     padding: 12,
     borderRadius: 10,
-    width: '22%',
+    width: 85,
   },
   convenienceText: {
     marginTop: 5,

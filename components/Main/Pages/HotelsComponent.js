@@ -8,9 +8,11 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Animated,
+	ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions';
 import FavoriteButton from '../../FavoriteButton';
@@ -23,7 +25,7 @@ const HotelsComponent = () => {
   const [hotels, setHotels] = useState([]);
   const [expanded, setExpanded] = useState(null);
   const [scaleValues, setScaleValues] = useState([]);
-
+	const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const navigation = useNavigation();
@@ -36,26 +38,54 @@ const HotelsComponent = () => {
   ];
 
   useEffect(() => {
-    const fetchHotelImages = async () => {
-      const defaultImage = 'https://via.placeholder.com/200';
-      const hotelPromises = hotelData.hotels.map(async (hotel) => {
-        try {
-          const imageURL = await getImageDownloadURL(hotel.image);
-          return { ...hotel, imageURL };
-        } catch (error) {
-          console.warn(`Image for hotel "${hotel.name}" could not be loaded, using default`);
-          return { ...hotel, imageURL: defaultImage };
+    const fetchAndCacheHotels = async () => {
+      try {
+        // Попытка загрузить отели из AsyncStorage
+        const cachedHotels = await AsyncStorage.getItem('hotels');
+        if (cachedHotels) {
+          const parsedHotels = JSON.parse(cachedHotels);
+          setHotels(parsedHotels);
+          setScaleValues(parsedHotels.map(() => new Animated.Value(1)));
+          setIsLoading(false);
+        } else {
+          // Если данных нет, загружаем и сохраняем
+          const hotelsWithImages = await fetchHotelImages();
+          await AsyncStorage.setItem('hotels', JSON.stringify(hotelsWithImages));
+          setHotels(hotelsWithImages);
+          setScaleValues(hotelsWithImages.map(() => new Animated.Value(1)));
+          setIsLoading(false);
         }
-      });
-      const hotelsWithImages = await Promise.all(hotelPromises);
-      setHotels(hotelsWithImages);
-
-      // Создаем массив scaleValues
-      setScaleValues(hotelsWithImages.map(() => new Animated.Value(1)));
+      } catch (error) {
+        console.error('Error loading hotels:', error);
+        setIsLoading(false);
+      }
     };
 
-    fetchHotelImages();
+    fetchAndCacheHotels();
   }, []);
+
+  const fetchHotelImages = async () => {
+    const defaultImage = 'https://via.placeholder.com/200';
+    const hotelPromises = hotelData.hotels.map(async (hotel) => {
+      try {
+        const imageURL = await getImageDownloadURL(hotel.image);
+        return { ...hotel, imageURL };
+      } catch (error) {
+        console.warn(`Image for hotel "${hotel.name}" could not be loaded, using default`);
+        return { ...hotel, imageURL: defaultImage };
+      }
+    });
+    return await Promise.all(hotelPromises);
+  };
+
+
+  if (isLoading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#4169E1" />
+      </View>
+    );
+  }
 
   const handleToggleFavorite = (hotel) => {
     const isFavorite = favorites.some((item) => item.caption === hotel.name);
@@ -203,6 +233,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginBottom: 60,
   },
+	loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   text: {
     fontFamily: 'Montserrat-SemiBold',
     color: '#000',
@@ -234,6 +270,7 @@ const styles = StyleSheet.create({
   },
   hotelName: {
     fontFamily: 'Montserrat-SemiBold',
+		width: '50%',
     color: '#000',
     fontSize: 20,
   },
