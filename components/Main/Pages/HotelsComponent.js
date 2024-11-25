@@ -6,21 +6,27 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import { addToFavorites, removeFromFavorites } from '../../../redux/actions';
 import FavoriteButton from '../../FavoriteButton';
 import hotelData from '../../../assets/hotels.json';
 import { getImageDownloadURL } from '../../firebaseStorageHelper';
 import { gStyle } from '../../../styles/style';
+import { handlePressIn, handlePressOut } from '../Animation/Animations';
 
 const HotelsComponent = () => {
   const [hotels, setHotels] = useState([]);
   const [expanded, setExpanded] = useState(null);
+  const [scaleValues, setScaleValues] = useState([]);
 
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const navigation = useNavigation();
 
   const convenience = [
     { id: 1, icon: 'wifi' },
@@ -30,44 +36,47 @@ const HotelsComponent = () => {
   ];
 
   useEffect(() => {
-		const fetchHotelImages = async () => {
-			const defaultImage = 'https://via.placeholder.com/200';
-			const hotelPromises = hotelData.hotels.map(async (hotel) => {
-				try {
-					const imageURL = await getImageDownloadURL(hotel.image);
-					return { ...hotel, imageURL };
-				} catch (error) {
-					console.warn(`Image for hotel "${hotel.name}" could not be loaded, using default`);
-					return { ...hotel, imageURL: defaultImage };
-				}
-			});
-			const hotelsWithImages = await Promise.all(hotelPromises);
-			setHotels(hotelsWithImages);
-		};
-	
-		fetchHotelImages();
-	}, []);
+    const fetchHotelImages = async () => {
+      const defaultImage = 'https://via.placeholder.com/200';
+      const hotelPromises = hotelData.hotels.map(async (hotel) => {
+        try {
+          const imageURL = await getImageDownloadURL(hotel.image);
+          return { ...hotel, imageURL };
+        } catch (error) {
+          console.warn(`Image for hotel "${hotel.name}" could not be loaded, using default`);
+          return { ...hotel, imageURL: defaultImage };
+        }
+      });
+      const hotelsWithImages = await Promise.all(hotelPromises);
+      setHotels(hotelsWithImages);
+
+      // Создаем массив scaleValues
+      setScaleValues(hotelsWithImages.map(() => new Animated.Value(1)));
+    };
+
+    fetchHotelImages();
+  }, []);
 
   const handleToggleFavorite = (hotel) => {
-		const isFavorite = favorites.some((item) => item.caption === hotel.name);
-	
-		if (!hotel.imageURL) {
-			console.error(`Image URL for hotel "${hotel.name}" is not loaded`);
-			return;
-		}
-	
-		if (isFavorite) {
-			dispatch(removeFromFavorites({ caption: hotel.name }));
-		} else {
-			dispatch(
-				addToFavorites({
-					caption: hotel.name,
-					image: { uri: hotel.imageURL },
-					rating: hotel.stars,
-				})
-			);
-		}
-	};
+    const isFavorite = favorites.some((item) => item.caption === hotel.name);
+
+    if (!hotel.imageURL) {
+      console.error(`Image URL for hotel "${hotel.name}" is not loaded`);
+      return;
+    }
+
+    if (isFavorite) {
+      dispatch(removeFromFavorites({ caption: hotel.name }));
+    } else {
+      dispatch(
+        addToFavorites({
+          caption: hotel.name,
+          image: { uri: hotel.imageURL },
+          rating: hotel.stars,
+        })
+      );
+    }
+  };
 
   const isHotelFavorite = (hotelName) => {
     return favorites.some((item) => item.caption === hotelName);
@@ -88,11 +97,8 @@ const HotelsComponent = () => {
     return partner ? <Icon name="flame" size={32} color="#FF4500" /> : null;
   };
 
-  const generateConveniences = (hotelId) => {
-    const currentHotel = hotels.find((h) => h.id === hotelId);
-    if (!currentHotel || !currentHotel.conveniences) return null;
-
-    return currentHotel.conveniences.map((convenienceId) => {
+  const generateConveniences = (hotelConveniences) => {
+    return hotelConveniences.map((convenienceId) => {
       const conv = convenience.find((c) => c.id === convenienceId);
       if (!conv) return null;
 
@@ -112,62 +118,84 @@ const HotelsComponent = () => {
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         <Text style={gStyle.title}>Отели</Text>
-        {hotels.map((hotel) => (
-          <View key={hotel.id} style={styles.hotelContainer}>
-            <View style={styles.partnerContainer}>{markPartner(hotel.partner)}</View>
-            <FavoriteButton
-              selected={isHotelFavorite(hotel.name)}
-              onToggle={() => handleToggleFavorite(hotel)}
-              style={[styles.heartButton, styles.iconShadow]}
-            />
-            <View style={styles.convenienceContainer}>
-              {generateConveniences(hotel.id)}
-            </View>
-            <View style={styles.hotelImage}>
-              <Image source={{ uri: hotel.imageURL }} style={styles.image} />
-            </View>
-            <View style={styles.hotelContentContainer}>
-              <View style={styles.hotelNameContainer}>
-                <Text style={styles.hotelName}>{hotel.name}</Text>
-                <View style={{ flexDirection: 'row' }}>{hotelStars(hotel.stars)}</View>
+        {hotels.map((hotel, index) => (
+          <TouchableWithoutFeedback
+            key={hotel.id}
+            onPressIn={() => handlePressIn(scaleValues[index])}
+            onPressOut={() => handlePressOut(scaleValues[index])}
+            onPress={() =>
+              navigation.navigate('PlusStackScreen', {
+                caption: hotel.name,
+                imageSource: { uri: hotel.imageURL },
+                rating: hotel.stars,
+                price: hotel.price,
+                conveniences: hotel.conveniences,
+                description: hotel.caption,
+              })
+            }
+          >
+            <Animated.View
+              style={[
+                styles.hotelContainer,
+                { transform: [{ scale: scaleValues[index] || new Animated.Value(1) }] },
+              ]}
+            >
+              <View style={styles.partnerContainer}>{markPartner(hotel.partner)}</View>
+              <FavoriteButton
+                selected={isHotelFavorite(hotel.name)}
+                onToggle={() => handleToggleFavorite(hotel)}
+                style={[styles.heartButton, styles.iconShadow]}
+              />
+              <View style={styles.convenienceContainer}>
+                {generateConveniences(hotel.conveniences)}
               </View>
-              <View>
-                <Text
-                  numberOfLines={expanded === hotel.id ? undefined : 2}
-                  style={styles.hotelCaption}
-                >
-                  {hotel.caption}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => setExpanded(expanded === hotel.id ? null : hotel.id)}
-                >
-                  <Text style={styles.readMore}>
-                    {expanded === hotel.id ? 'Скрыть' : 'Подробнее'}
+              <View style={styles.hotelImage}>
+                <Image source={{ uri: hotel.imageURL }} style={styles.image} />
+              </View>
+              <View style={styles.hotelContentContainer}>
+                <View style={styles.hotelNameContainer}>
+                  <Text style={styles.hotelName}>{hotel.name}</Text>
+                  <View style={{ flexDirection: 'row' }}>{hotelStars(hotel.stars)}</View>
+                </View>
+                <View>
+                  <Text
+                    numberOfLines={expanded === hotel.id ? undefined : 2}
+                    style={styles.hotelCaption}
+                  >
+                    {hotel.caption}
                   </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.hotelPriceContainer}>
-                <Text style={styles.hotelPrice}>{hotel.price}₽/сут.</Text>
-                <View style={styles.buttonContainer}>
                   <TouchableOpacity
-                    style={[styles.buttonBook, styles.glowingButton]}
+                    onPress={() => setExpanded(expanded === hotel.id ? null : hotel.id)}
                   >
-                    <Text style={styles.buttonTextBook}>Забронировать</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.buttonMap, styles.glowingButton]}
-                  >
-                    <Text style={styles.buttonTextMap}>На карте</Text>
+                    <Text style={styles.readMore}>
+                      {expanded === hotel.id ? 'Скрыть' : 'Подробнее'}
+                    </Text>
                   </TouchableOpacity>
                 </View>
+                <View style={styles.hotelPriceContainer}>
+                  <Text style={styles.hotelPrice}>{hotel.price}₽/сут.</Text>
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                      style={[styles.buttonBook, styles.glowingButton]}
+                    >
+                      <Text style={styles.buttonTextBook}>Забронировать</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.buttonMap, styles.glowingButton]}
+                    >
+                      <Text style={styles.buttonTextMap}>На карте</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
-            </View>
-          </View>
+            </Animated.View>
+          </TouchableWithoutFeedback>
         ))}
       </ScrollView>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

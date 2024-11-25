@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   View,
   StyleSheet,
@@ -9,44 +9,42 @@ import {
   ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import BackButton from '../BackButton';
-import { addToFavorites, removeFromFavorites } from '../../redux/actions';
+import {addToFavorites, removeFromFavorites} from '../../redux/actions';
 import FavoriteButton from '../FavoriteButton';
 
 const PlusStackScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const favorites = useSelector((state) => state.favorites);
-  const { caption, imageSource, rating } = route.params;
+  const favorites = useSelector(state => state.favorites);
+  const {caption, imageSource, rating, price, conveniences, description} =
+    route.params;
+
+  const conveniencesList = [
+    {id: 1, icon: 'wifi', text: 'WiFi'},
+    {id: 2, icon: 'restaurant', text: 'Питание'},
+    {id: 3, icon: 'bed', text: 'Отель'},
+    {id: 4, icon: 'water', text: 'Бассейн'},
+  ];
 
   const [expanded, setExpanded] = useState(false);
   const [isBooked, setIsBooked] = useState(false);
 
   const dispatch = useDispatch();
 
-  // Массив удобств
-  const conveniences = [
-    { icon: 'wifi', text: 'Wi-Fi' },
-    { icon: 'restaurant', text: 'Питание' },
-    { icon: 'bed', text: 'Отель' },
-    { icon: 'water', text: 'Бассейн' },
-  ];
+  const isFavorite = favorites.some(item => item.caption === caption);
 
-  // Проверка, добавлено ли в избранное
-  const isFavorite = favorites.some((item) => item.caption === caption);
-
-  // Добавление/удаление из избранного
   const handleToggleFavorite = () => {
     if (isFavorite) {
-      dispatch(removeFromFavorites({ caption }));
+      dispatch(removeFromFavorites({caption}));
     } else {
       dispatch(
         addToFavorites({
           caption,
           image: imageSource,
           rating,
-        })
+        }),
       );
     }
   };
@@ -54,7 +52,7 @@ const PlusStackScreen = () => {
   return (
     <View style={styles.container}>
       <BackButton onPress={() => navigation.goBack()} />
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{flexGrow: 1}}>
         <View style={styles.imageContainer}>
           <Image source={imageSource} style={styles.image} />
           <FavoriteButton
@@ -80,18 +78,8 @@ const PlusStackScreen = () => {
           <View>
             <Text
               style={[styles.description, !expanded && styles.collapsedText]}
-              numberOfLines={expanded ? null : 5}
-            >
-              Успенский собор в Рязани - один из древнейших православных храмов
-              России, построенный в 1693-1699 годах. Это величественное
-              пятиглавое здание является главным храмом Рязанского кремля и
-              архитектурной доминантой города. Собор славится своими уникальными
-              фресками XVII века, богатым иконостасом и впечатляющей
-              архитектурой в стиле нарышкинского барокко. Высота собора
-              составляет 72 метра, что делает его одним из самых высоких храмов
-              своего времени. Внутреннее убранство поражает своей красотой и
-              величием, а с смотровой площадки открывается захватывающий вид на
-              город и реку Оку.
+              numberOfLines={expanded ? null : 5}>
+              {description}
             </Text>
             <TouchableOpacity onPress={() => setExpanded(!expanded)}>
               <Text style={styles.readMoreButton}>
@@ -102,37 +90,45 @@ const PlusStackScreen = () => {
 
           <Text style={styles.conveniencesTitle}>Удобства</Text>
           <View style={styles.conveniences}>
-            {conveniences.map((item, index) => (
-              <View key={index} style={styles.convenienceItem}>
-                <Icon name={item.icon} style={styles.convenienceIcon} />
-                <Text style={styles.convenienceText}>{item.text}</Text>
-              </View>
-            ))}
+            {conveniences.map((id, index) => {
+              const convenienceItem = conveniencesList.find(c => c.id === id);
+              if (!convenienceItem) return null;
+
+              return (
+                <View key={index} style={styles.convenienceItem}>
+                  <Icon
+                    name={convenienceItem.icon}
+                    style={styles.convenienceIcon}
+                  />
+									<Text style={styles.convenienceText}>{convenienceItem.text}</Text>
+                </View>
+              );
+            })}
+          </View>
+
+          <View style={styles.footer}>
+            <View>
+              <Text style={styles.labelPrice}>Цена</Text>
+              <Text style={styles.price}>{price}₽/сут</Text>
+            </View>
+            <TouchableOpacity
+              onPress={() => setIsBooked(!isBooked)}
+              style={isBooked ? styles.cancelButton : styles.bookButton}>
+              <Text
+                style={
+                  isBooked ? styles.cancelButtonText : styles.bookButtonText
+                }>
+                {isBooked ? 'Отменить' : 'Забронировать'}
+              </Text>
+							<Icon
+								name="arrow-forward"
+								size={20}
+								color={isBooked ? '#4169E1' : '#FFF'}
+							/>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
-
-      <View style={styles.footer}>
-        <View>
-          <Text style={styles.labelPrice}>Цена</Text>
-          <Text style={styles.price}>500₽</Text>
-        </View>
-        <TouchableOpacity
-          style={isBooked ? styles.cancelButton : styles.bookButton}
-          onPress={() => setIsBooked(!isBooked)}
-        >
-          <Text
-            style={isBooked ? styles.cancelButtonText : styles.bookButtonText}
-          >
-            {isBooked ? 'Отменить' : 'Забронировать'}
-          </Text>
-          <Icon
-            name="arrow-forward"
-            size={20}
-            color={isBooked ? '#4169E1' : '#FFF'}
-          />
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -147,7 +143,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
     height: 300,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   image: {
     width: '90%',
@@ -177,7 +173,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
   },
   title: {
     fontFamily: 'Montserrat-SemiBold',
@@ -256,7 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   bookButton: {
-    width: '65%',
+    width: '62%',
     backgroundColor: '#4169E1',
     flexDirection: 'row',
     alignItems: 'center',
@@ -279,7 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   cancelButton: {
-    width: '65%',
+    width: '62%',
     justifyContent: 'center',
     backgroundColor: '#fff',
     flexDirection: 'row',
