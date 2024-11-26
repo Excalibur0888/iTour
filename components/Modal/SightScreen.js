@@ -71,7 +71,7 @@ const SightScreen = () => {
             <Text
               style={[styles.description, !expanded && styles.collapsedText]}
               numberOfLines={expanded ? null : 5}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Успенский собор Рязанского Кремля — православный храм в Рязани, летний кафедральный собор Рязанской епархии Русской православной церкви. Построен в Рязанском Кремле в 1693–1699 годах зодчим Яковом Григорьевичем Бухвостовым в стиле «нарышкинского барокко». Стилизованное изображение собора является одним из символов города.
             </Text>
             <TouchableOpacity onPress={() => setExpanded(!expanded)}>
               <Text style={styles.readMoreButton}>
