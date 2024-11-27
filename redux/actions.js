@@ -6,6 +6,7 @@ export const addToFavorites = createAction('ADD_TO_FAVORITES', (item) => {
       caption: item.caption,
       image: item.image,
 			rating: item.rating,
+			category: item.category
     },
   };
 });

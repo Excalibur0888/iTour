@@ -34,6 +34,7 @@ const SightScreen = () => {
           caption,
           image: imageSource,
           rating,
+					category: "location",
         }),
       );
     }

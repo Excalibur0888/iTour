@@ -24,7 +24,7 @@ const Block = ({ imageSource, text }) => {
   };
 
   const handleNavigateToDetails = () => {
-    navigation.navigate("PlusStackScreen", {
+    navigation.navigate("SightScreen", {
       imageSource: imageSource,
       caption: text,
     });

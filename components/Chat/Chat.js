@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { gStyle } from '../../styles/style';
 
 const Chat = ({ navigation }) => {
   const chats = [
@@ -38,7 +39,7 @@ const Chat = ({ navigation }) => {
   return (
     <View style={styles.main}>
       <Header />
-      <Text style={styles.title}>Сообщения</Text>
+      <Text style={gStyle.mainTitle}>Сообщения</Text>
       <ScrollView style={styles.chatList} showsVerticalScrollIndicator={false}>
         {chats.map((chat) => (
           <TouchableOpacity
@@ -80,13 +81,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#fff',
 		padding: 15
-	},
-	title: {
-		fontSize: 24,
-		fontFamily: 'Montserrat-SemiBold',
-		marginBottom: 10,
-		color: '#000',
-		marginLeft: 15
 	},
 	chatList: {
 		flex: 1,

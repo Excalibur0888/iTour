@@ -44,6 +44,7 @@ const PlusStackScreen = () => {
           caption,
           image: imageSource,
           rating,
+					category: "hotels",
         }),
       );
     }

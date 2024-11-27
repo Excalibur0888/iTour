@@ -1,18 +1,34 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { gStyle } from '../../styles/style';
 import BackButton from '../BackButton';
+import FavouriteTabs from './FavouriteTabs';
 
 const Favourite = () => {
+  const [activeTab, setActiveTab] = useState(1);
   const favorites = useSelector((state) => state.favorites);
+
+  const categoryMapping = {
+    1: 'location',
+    2: 'hotels',
+    3: 'food',
+    4: 'activities',
+    5: 'transport',
+  };
+
+  const filteredFavorites = favorites.filter(
+    (item) => item.category === categoryMapping[activeTab]
+  );
 
   return (
     <View style={gStyle.main}>
       <BackButton />
+			<Text style={[gStyle.mainTitle, styles.favouriteTitle]}>Избранное</Text>
+      <FavouriteTabs activeTab={activeTab} setActiveTab={setActiveTab} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.gridContainer}>
-          {favorites.map((item, index) => (
+          {filteredFavorites.map((item, index) => (
             <View key={index} style={styles.card}>
               <Image source={item.image} style={styles.image} />
               <Text style={styles.caption}>{item.caption}</Text>
@@ -30,6 +46,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 20,
   },
+	favouriteTitle: {
+		alignSelf: 'flex-end',
+		margin: 20,
+		marginBottom: 0,
+		marginLeft: 0,
+	},
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

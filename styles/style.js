@@ -1,6 +1,13 @@
 import { StyleSheet } from "react-native";
 
 export const gStyle = StyleSheet.create({
+	mainTitle: {
+		fontSize: 24,
+		fontFamily: 'Montserrat-SemiBold',
+		marginBottom: 10,
+		color: '#000',
+		marginLeft: 15
+	},
 	title: {
 		fontSize: 18,
 		fontFamily: 'Montserrat-SemiBold',

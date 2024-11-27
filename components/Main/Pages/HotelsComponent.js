@@ -103,6 +103,7 @@ const HotelsComponent = () => {
           caption: hotel.name,
           image: { uri: hotel.imageURL },
           rating: hotel.stars,
+					category: "hotels",
         })
       );
     }

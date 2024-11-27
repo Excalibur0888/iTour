@@ -33,6 +33,7 @@ const Block = ({ blockCaption, imageSource, rating }) => {
           caption: blockCaption,
           image: imageSource,
           rating: rating,
+					category: "location",
         })
       );
     }
@@ -44,6 +45,7 @@ const Block = ({ blockCaption, imageSource, rating }) => {
       caption: blockCaption,
       imageSource: imageSource,
       rating: rating,
+			category: "location",
     });
   };
 
