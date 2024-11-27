@@ -2,6 +2,7 @@ import React from 'react';
 import Main from '../components/Main/Main';
 import Profile from '../components/Profile/Profile';
 import Map from '../components/Map/Map';
+import News from '../components/News/News';
 import PlusStackScreen from '../components/Modal/PlusStackScreen';
 import SightScreen from '../components/Modal/SightScreen';
 import ChatDialog from '../components/Chat/ChatDialog';
@@ -23,6 +24,7 @@ const MainTab = () => (
     }}
   >
     <Tab.Screen name="Main" component={Main} />
+		<Tab.Screen name="News" component={News} />
     <Tab.Screen name="Profile" component={Profile} />
     <Tab.Screen name="Map" component={Map} />
 		<Tab.Screen name="Chat" component={Chat} />

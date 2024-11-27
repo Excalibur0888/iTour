@@ -30,6 +30,14 @@ const Menu = () => {
         isActive={activeMenu === 'Main'}>
         {{iconName: 'home-outline'}}
       </MenuButton>
+			<MenuButton
+        onPress={() => {
+          navigation.navigate('MainTab', {screen: 'News'});
+          setActiveMenu('News');
+        }}
+        isActive={activeMenu === 'News'}>
+        {{iconName: 'newspaper-outline'}}
+      </MenuButton>
       <MenuButton
         onPress={() => {
           navigation.navigate('MainTab', {screen: 'Map'});
