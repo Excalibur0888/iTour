@@ -7,7 +7,7 @@ const stories = [
   { id: 2, username: 'Никита', avatarSource: require('../../assets/avatar2.jpg') },
   { id: 3, username: 'Дмитрий', avatarSource: require('../../assets/avatar3.jpg') },
   { id: 4, username: 'Алена', avatarSource: require('../../assets/avatar5.jpg') },
-  { id: 5, username: 'Лев', avatarSource: require('../../assets/avatar4.jpg') },
+  { id: 5, username: 'Лев', avatarSource: require('../../assets/avatar7.jpg') },
   { id: 6, username: 'Алексей', avatarSource: require('../../assets/avatar6.jpg') },
 ];
 
