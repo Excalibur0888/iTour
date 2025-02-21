@@ -170,6 +170,61 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     gap: 10,
   },
+commentInputContainer: {
+  marginTop: 10, // Отступ сверху, чтобы поле не слипалось с иконками
+  marginBottom: 10, // Отступ снизу, чтобы отделить от статистики
+  backgroundColor: '#f9f9f9',
+  borderRadius: 10,
+  paddingHorizontal: 10,
+  borderWidth: 1,
+  borderColor: '#ccc',
+},
+commentInput: {
+  height: 40,
+  fontSize: 16,
+  fontFamily: 'Montserrat-Regular',
+  color: '#000',
+},
+
+
+postFooter: {
+  marginTop: 10,
+},
+footerTop: {
+  flexDirection: 'row', // Располагаем иконки и статистику в одной строке
+  justifyContent: 'space-between', // Отодвигаем иконки и статистику по краям
+  alignItems: 'center', // Вертикальное выравнивание
+  marginBottom: 10, // Отступ между верхним блоком и полем ввода
+},
+postActions: {
+  flexDirection: 'row', // Иконки идут по горизонтали
+  gap: 15, // Расстояние между иконками
+},
+postStats: {
+  flexDirection: 'row', // Лайки и просмотры по горизонтали
+  alignItems: 'center', // Вертикальное выравнивание
+  gap: 5, // Промежутки между иконками и текстом
+},
+statsText: {
+  color: '#666',
+  fontSize: 14,
+},
+commentInputContainer: {
+  backgroundColor: '#f9f9f9',
+  borderRadius: 10,
+  paddingHorizontal: 10,
+  paddingVertical: 5, // Небольшой внутренний отступ
+  borderWidth: 1,
+  borderColor: '#ccc',
+  marginTop: 5, // Отступ сверху от блока иконок/статистики
+},
+commentInput: {
+  height: 40,
+  fontSize: 16,
+  fontFamily: 'Montserrat-Regular',
+  color: '#000',
+},
+
 
 });
 

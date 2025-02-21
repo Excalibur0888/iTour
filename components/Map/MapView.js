@@ -12,6 +12,7 @@ const MapView = ({ currentLocation, searchLocation, mapRef, handleMapPress, remo
 			nightMode={nightmode}
       rotateGesturesEnabled={false}
       userLocationIcon={userLocationIcon}
+			userLocationIconScale={0.7}
       userLocationAccuracyFillColor='#d45f5f'
       initialRegion={{
         lat: currentLocation.latitude,
